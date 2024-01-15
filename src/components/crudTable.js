@@ -7,6 +7,7 @@ import { getToken } from '@/utilsfunctions/getCredentials';
 import { toast } from 'react-toastify';
 import { signOut } from 'next-auth/react';
 import { Modal } from '@mui/material';
+import AddEditForm from './AddUserForm';
 
 
 const Table = () => {
@@ -99,7 +100,7 @@ const Table = () => {
       />
     </div>
     <Modal open={open} onClose={handleClose}>
-        <h2>modal opened</h2>
+        <AddEditForm user={{}}/>
     </Modal>
 
     </>
