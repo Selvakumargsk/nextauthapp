@@ -13,6 +13,8 @@ import AddEditForm from './AddUserForm';
 const Table = () => {
     const [rows , setRows] = useState([]);
     const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
 
     const fetchData = async() =>{
@@ -29,7 +31,10 @@ const Table = () => {
     },[])
 
     const handleEdit = (id) => {
-        setOpen(true);
+      const user = rows.find((row) => row.id === id);
+      setSelectedUser(user);
+
+        setOpenEdit(true);
         // Handle edit action, e.g., redirect to edit page
         console.log(`Edit clicked for ID: ${id}`);
       };
@@ -40,6 +45,7 @@ const Table = () => {
     
       const handleClose = () => {
         setOpen(false);
+        setOpenEdit(false);
       };
     
       const handleDelete = async(id) => {
@@ -70,14 +76,16 @@ const Table = () => {
     };
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 200 },
-        { field: 'email', headerName: 'Email', width: 200 },
+        { field: 'id', headerName: 'ID', width: 250 },
+        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'email', headerName: 'Email', width: 250 },
         { field: 'username', headerName: 'Username', width: 200 },
-        { field: 'number', headerName: 'Number', width: 200 },
+        { field: 'phone', headerName: 'Number', width: 200 },
+        { field: 'website', headerName: 'Website', width: 200 },
         {
             field: 'actions',
             headerName: 'Actions',
-            width: 200,
+            width: 150,
             renderCell: (params) => (
               <>
                 <button onClick={() => handleEdit(params.row.id)}><EditIcon /></button>
@@ -88,8 +96,8 @@ const Table = () => {
 
   return (
     <>
-    <div onClick={handleOpen}>ADD User</div>
-   <div style={{ height: 400, width: '100vw' }}>
+    <button className='bg-blue-500 p-2 font-bold text-[white] ml-4 mb-2 rounded-md' onClick={handleOpen}>ADD User</button>
+   <div style={{ height: 600, width: '100vw' }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -100,7 +108,10 @@ const Table = () => {
       />
     </div>
     <Modal open={open} onClose={handleClose}>
-        <AddEditForm user={{}}/>
+        <AddEditForm fetchData={fetchData} handleClose={handleClose}/>
+    </Modal>
+    <Modal open={openEdit} onClose={handleClose}>
+        <AddEditForm fetchData={fetchData} user={selectedUser} handleClose={handleClose}/>
     </Modal>
 
     </>

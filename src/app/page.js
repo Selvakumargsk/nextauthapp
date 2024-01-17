@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <>
     <div className="flex justify-between p-5">
-      <h2 className="text-center text-[blue] font-bold ">homepage</h2>
+      <h2 className="text-center text-[blue] font-bold text-[24px]">homepage</h2>
       <button className="bg-red-500 p-2 font-bold text-[white] mt-2 rounded-md" onClick={handleSignOut}>signOut here</button>
     </div>
       <Table />
