@@ -28,7 +28,7 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
     onSubmit: async (values) => {
       try {
         if(typeof user === "object"){
-          const response = await axios.put(`http://localhost:4000/editUser/${user.id}` ,
+          const response = await axios.put(`http://192.168.2.45:3000/user/updateSingleValue/users/${user.id}` ,
           values, 
           {
             headers: {
@@ -47,7 +47,7 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
           }
         }else{
           const response = await axios.post(
-            "http://localhost:4000/addUser",
+            "http://192.168.2.45:3000/user/setSingleValue/users",
             values,
             {
               headers: {
@@ -55,6 +55,7 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
               },
             }
           );
+          console.log(response);
           if(response.status == 200){
             toast.success('User Added successfully');
             fetchData();
@@ -65,7 +66,6 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
             handleClose();
           }
 
-          console.log(response);
         }
         console.log(values);
       } catch (err) {
