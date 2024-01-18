@@ -36,7 +36,7 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
             },
           });
           console.log(response);
-          if(response.status == 200){
+          if(response.data.status == 200){
             toast.success('User updated successfully');
             fetchData();
             handleClose();
@@ -56,7 +56,7 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
             }
           );
           console.log(response);
-          if(response.status == 200){
+          if(response.status == 201){
             toast.success('User Added successfully');
             fetchData();
             handleClose();
@@ -70,6 +70,9 @@ const AddEditForm = ({ fetchData, user , handleClose }) => {
         console.log(values);
       } catch (err) {
         console.error(err);
+        toast.error(err?.response?.data?.message);
+        signOut();
+        handleClose();
       }
     },
   });

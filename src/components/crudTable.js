@@ -56,7 +56,7 @@ const Table = () => {
                   Authorization: `Bearer ${getToken()}`,
                 },
               });
-              if(response.status == 200){
+              if(response?.data?.status == 200){
                 fetchData();
               }else{
                 toast.error('you are not authenticated');
@@ -71,6 +71,7 @@ const Table = () => {
             }, 1000);
         }
     }catch(err){
+      toast.error('you are not authenticated');
         signOut();
     }
     };
